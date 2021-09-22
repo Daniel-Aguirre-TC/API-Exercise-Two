@@ -1,0 +1,15 @@
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.exe
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.deps.json
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.runtimeconfig.json
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.runtimeconfig.dev.json
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.dll
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\APIExerciseTwo.pdb
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.csproj.AssemblyReference.cache
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.AssemblyInfoInputs.cache
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.AssemblyInfo.cs
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.csproj.CoreCompileInputs.cache
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.csproj.CopyComplete
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.dll
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.pdb
+C:\Users\Second-Desktop\repos\APIExerciseTwo\APIExerciseTwo\obj\Debug\netcoreapp3.1\APIExerciseTwo.genruntimeconfig.cache
