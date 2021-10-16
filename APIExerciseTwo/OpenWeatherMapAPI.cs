@@ -13,39 +13,43 @@ namespace APIExerciseTwo
         HttpClient Client;
         readonly string API_Key;
 
-        /// <summary>
-        /// Constructor requires an APIKey for OpenWeatherMapAPI
-        /// </summary>
-        /// <param name="apiKey"></param>
+        /// <summary> Constructor requires an APIKey for OpenWeatherMapAPI </summary>
         public OpenWeatherMapAPI(string apiKey)
         {
             Client = new HttpClient();
             API_Key = apiKey;
-
         }
 
+        // for testing I've used a constructor that will automatically assign the API_Key for me.
         public OpenWeatherMapAPI()
         {
-
             API_Key = "261c6078621346b5f498b4d9d656d959";
             Client = new HttpClient();
         }
 
-        public void GetWeather(string cityName)
+        /// <summary> Print the main weather results for the location provided. </summary>
+        public void GetWeather(string location)
         {
-            //TODO: Refactor to return weather data in a string array
+            // try catch used in case the locationFound is null, to notify user that the requested location could not be found.
             try
             {
-                var cityFound = Client.GetStringAsync($"http://api.openweathermap.org/data/2.5/weather?q={cityName}&&units=imperial&appid={API_Key}").Result;
-                Console.WriteLine("\n" + JObject.Parse(cityFound).GetValue("main").ToString());
+                // Use HttpClient to send a GET request to the API using the GetStringAsync() method.
+                var locationFound = Client.GetStringAsync($"http://api.openweathermap.org/data/2.5/weather?q={location}&&units=imperial&appid={API_Key}").Result;
+                
+                // Parse the results for the JSON Object named "main" and write them to the console.
+                Console.WriteLine($"\nResults for {location}: " + JObject.Parse(locationFound).GetValue("main").ToString());
             }
             catch (Exception)
             {
-                Console.WriteLine("\nI'm sorry, I couldn't locate your requested city.");
+                Console.WriteLine("\nI'm sorry, I couldn't locate your requested location.");
             }
+        }          
+    }
+}
 
-        }
-      
+
+
+
         /*
         #region Root & Results
 
@@ -119,6 +123,3 @@ namespace APIExerciseTwo
 
         #endregion
     */
-    
-    }
-}

@@ -36,7 +36,7 @@ namespace APIExerciseTwo
 
         public IEnumerable<City> CitiesByState(State state)
         {
-            return CitiesByState(state.Name);
+            return CitiesByState(state.StateName);
         }
 
         public IEnumerable<City> CitiesByZip(string zip)

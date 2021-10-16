@@ -24,6 +24,8 @@ namespace APIExerciseTwo
             Checkpoint = new List<StringBuilder>();
         }
 
+        #region Top Spacing
+
         public static void ResetTopSpacing()
         {
             SetTopSpacing(DefaultTopSpacing);
@@ -39,6 +41,9 @@ namespace APIExerciseTwo
             return TopSpacing;
         }
 
+        #endregion
+
+        #region Checkpoint
 
         /// <summary>
         /// Return a string array representing the current contents of the screen. You can return to this checkpoint by calling ClearThenPrint(string[] returned)
@@ -65,6 +70,8 @@ namespace APIExerciseTwo
             ClearThenPrint(Checkpoint.Select(x => x.ToString()).ToArray());
         }
 
+        #endregion
+
         #region Input Messages
 
         /// <summary>
@@ -77,6 +84,7 @@ namespace APIExerciseTwo
             ReprintWith(question, Prompter.PadToCenter("Enter Yes/No: "));
             return new Regex(@"^y").IsMatch(Console.ReadLine().ToLower()) ? true : false;
         }
+
         /// <summary>
         /// print the provided question at the bottom of the screen and then return true/false based on the users input.
         /// </summary>
@@ -161,9 +169,6 @@ namespace APIExerciseTwo
             return input;
         }
 
-
-
-
         /// <summary>
         /// Print the message provided on a loop until the player provides a valid input option. Numbers available is dependant on how many messages match @"[\d]+)"
         /// </summary>
@@ -212,8 +217,12 @@ namespace APIExerciseTwo
 
         #endregion
 
-
         #region Standard Messages
+
+        /// <summary>
+        /// Clear all rows of the 
+        /// </summary>
+        /// <param name="newMessage"></param>
         public static void ClearThenPrint(string newMessage)
         {
             ClearRows();
@@ -222,7 +231,7 @@ namespace APIExerciseTwo
         }
 
         /// <summary>
-        /// Take in a Dictionary to search, and a key, then print a message centered vertically corresponding to that key.
+        /// Clear all rows of the screen then .
         /// </summary>
         /// <param name="key"></param>
         public static void ClearThenPrint(string[] newMessage)
@@ -414,7 +423,6 @@ namespace APIExerciseTwo
         }
 
         #endregion
-
 
     }
 

@@ -8,10 +8,5 @@ namespace APIExerciseTwo
     {
         int ID { get; set; }
         public int Zip { get; set; }
-
-        State ParentState { get; set; }
-        IEnumerable<City> Cities { get; set; }
-
-
     }
 }

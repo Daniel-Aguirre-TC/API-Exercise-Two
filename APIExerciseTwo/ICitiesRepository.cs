@@ -12,8 +12,11 @@ namespace APIExerciseTwo
 
         IEnumerable<City> CitiesByState(string state);
 
+        IEnumerable<City> CitiesByState(State state);
+
         IEnumerable<City> CitiesByZip(string zip);
 
+        IEnumerable<State> GetState(string state);
 
     }
 }

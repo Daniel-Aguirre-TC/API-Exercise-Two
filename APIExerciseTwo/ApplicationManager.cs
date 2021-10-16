@@ -13,17 +13,22 @@ namespace APIExerciseTwo
         static IDbConnection DbConnection;
         static bool ApplicationRunning { get; set; }
 
+        // When my ApplicationManager is first used it will call my static constructor
         static ApplicationManager()
         {
+            // Initialize ApplicationRunning bool as true.
             ApplicationRunning = true;
+            // Initialize IDbConnection using the connection string stored in my appsettings.json file.
             DbConnection = GetConnection();
         }
 
 
         public static void StartApplication()
         {
-
+            // create an instance of CitiesRepo to access MySQL Database using my IDbConnection 
             var citiesRepo = new CitiesRepository(DbConnection);
+
+            // create an instance OpenWeatherMapAPI that is used to request information from the API
             var weatherMan = new OpenWeatherMapAPI();
             Prompter.StartingScreen();
             
@@ -44,6 +49,25 @@ namespace APIExerciseTwo
             }
         }
 
+        /// <returns>IDbConnection based on the "DefaultConnection" string stored in appsettings.json file</returns>
+        static IDbConnection GetConnection()
+        {
+            // Use ConfigurationBuilder to initalize an IConfigurationRoot from by appsettings.json file.
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            // obtain the connection string to access MySQL Database
+            string connString = config.GetConnectionString("DefaultConnection");
+
+            // return the IDbConnection created with the above connection string.
+            return new MySqlConnection(connString);
+        }
+    }
+}
+
+
         /*
         //ApplicationRunning = false;
         //Console.Write("\nPlease enter the name of the city you want to check: ");
@@ -60,21 +84,3 @@ namespace APIExerciseTwo
         //    Console.WriteLine();
         //}
         */
-
-
-        static IDbConnection GetConnection()
-        {
-
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            string connString = config.GetConnectionString("DefaultConnection");
-            return new MySqlConnection(connString);
-
-        }
-
-
-    }
-}

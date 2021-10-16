@@ -8,60 +8,54 @@ namespace APIExerciseTwo
 {
     static class Prompter
     {
-
-
         public static void StartingScreen()
         {
             PadCeiling(Console.WindowHeight / 2);
-            Screen.ClearThenPrint(new string[]
+            Screen.ClearThenPrint(PadToCenter(new string[]
             {
-                "Thanks for taking using my OpenWeatherMap API application.","",
+                "Thanks for using my OpenWeatherMap API application.","",
                 "Created by Daniel Aguirre"
-            });
-
+            }));
+            Console.ReadKey();
 
         }
  
+
+        /// <summary> Handles the loop needed to obtain user input for what type of location they are searching for. </summary>
+        /// <returns> 0 - 2 depending on which option is selected. 0 = City, 1 = State, 2 = Zip</returns>
         public static int GetSearchType()
         {
-            var giveHint = false;
+            // option Index will represent which option the user is currently on
             var optionIndex = 0;
+
+            // selecting will be true until the user clicks enter,
+            // and is used to keep the player on this screen until an option is selected.
             var selecting = true;
             
+
             while (selecting)
             {
-
                 // set the padding for ceiling to center this message vertically.
-                // magic number three is to offset for displaying five rows of strings, half would be 2.5, so I rounded up to three.
-                PadCeiling(Console.WindowHeight / 2 - 3);
-                if (giveHint == true)
-                {
-                    PadCeiling(Console.WindowHeight / 2 - 5);
-                    Screen.AddToRows(PadToCenter(new string[]
-                    {
-                        "Please use the up/down arrows to select an option.","",
-                        "Click enter when you are ready to confirm your selection.",""                    
-                    }));
-                }
+                // magic number 3 is to offset for displaying 5 rows of strings, half would be 2.5, so I rounded up to three.
+                PadCeiling(Console.WindowHeight / 2 - 3);                                             
                 Screen.ClearRows();
-                Screen.AddToRows(PadToCenter("What would you like to search by?"));
-                Screen.AddToRows("");
-                Screen.AddToRows(PadToCenter(optionIndex == 0 ? "City <-- " : "City     "));
-                Screen.AddToRows(PadToCenter(optionIndex == 1 ? "State <--" : "State    "));
-                Screen.ReprintWith(PadToCenter(optionIndex == 2 ? "Zip <--  " : "Zip      "));               
+                Screen.AddToRows(PadToCenter("What would you like to search by?"));                     // row 1
+                Screen.AddToRows("");                                                                   // row 2
+                Screen.AddToRows(PadToCenter(optionIndex == 0 ? "City <-- " : "City     "));            // row 3
+                Screen.AddToRows(PadToCenter(optionIndex == 1 ? "State <--" : "State    "));            // row 4
+                Screen.ReprintWith(PadToCenter(optionIndex == 2 ? "Zip <--  " : "Zip      "));          // row 5
                 
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.UpArrow:
-                        optionIndex = optionIndex == 0? 1: --optionIndex; break;                       
+                        optionIndex = optionIndex == 0? 1: --optionIndex; break;       
+                        
                     case ConsoleKey.DownArrow:
                         optionIndex = optionIndex == 2 ? 0 : ++optionIndex; break;
 
-                    case ConsoleKey.Enter: selecting = false; break;
+                    case ConsoleKey.Enter: 
+                        selecting = false; break;
 
-                    default:
-                        giveHint = true;
-                        break;
                 }
             }
             return optionIndex;
@@ -78,6 +72,7 @@ namespace APIExerciseTwo
                     "Enter    |                                                 |       ",
                     "Your    |  #############################################  |   <---",
                     "Search   |_________________________________________________|       ","",
+                    "Pressing Enter will return search results for the first location listed.\n"
             };
             var footer = new string[]
             {
@@ -100,34 +95,52 @@ namespace APIExerciseTwo
                 if (inputSoFar.Length > 0)
                 {
 
-                var citiesFound = citiesRepo.CitiesByName(inputSoFar.ToString());
-                citiesFound.OrderBy(x => searchType == "city"? x.Name : searchType == "state" ? x.State : x.Zip).ToList().
-                    ForEach(x => Screen.AddToRows(PadToCenter(LocationLine(x.Zip, x.State, x.Name))));
+                    switch(searchType)
+                    {
+                        case "city":
+                            var citiesFound = citiesRepo.CitiesByName(inputSoFar.ToString()).OrderBy(x => x.Name).ToList();
+                            citiesFound.ForEach(x => Screen.AddToRows(PadToCenter(LocationLine(x.Zip, x.State, x.Name))));
+                            break;
+
+                        case "state":
+                            var statesFound = citiesRepo.GetState(inputSoFar.ToString()).OrderBy(x => x.StateName).ToList();
+                            statesFound.ForEach(x => { Screen.AddToRows(PadToCenter(x.StateName)); });
+                            break;
+
+                        case "zip code":
+                            var zipsFound = citiesRepo.CitiesByZip(inputSoFar.ToString()).OrderBy(x => x.Zip).ToList();
+                            zipsFound.ForEach(x => Screen.AddToRows(PadToCenter(LocationLine(x.Zip, x.State, x.Name))));
+                            break;
+                    }
+
                 }
                 Screen.ReprintWith(PadToCenter(footer));
-
 
                 // store then switch on input
                 var input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
                     case (char)ConsoleKey.Enter:
-                        gettingInput = false;
-                        break;
-                    case (char)ConsoleKey.UpArrow:
+                        if (inputSoFar.Length > 0)
+                        {
+                            try
+                            {
+                                return searchType == "city" ? citiesRepo.CitiesByName(inputSoFar.ToString()).OrderBy(x => x.Name).First().Name
+                                 : searchType == "state" ? citiesRepo.GetState(inputSoFar.ToString()).OrderBy(x => x.StateName).First().StateName
+                                                        : citiesRepo.CitiesByZip(inputSoFar.ToString()).OrderBy(x => x.Zip).First().Name;
+                            }
+                            catch (Exception)
+                            {
+                                break;
+                            }
+                        }
+                        else break;
 
-                        break;
-                    case (char)ConsoleKey.DownArrow:
-
-                        break;
                     case (char)ConsoleKey.Backspace:
                         if (inputSoFar.Length >= 1)
                         {
                         inputSoFar.Remove(inputSoFar.Length-1, 1);
                         }
-                        break;
-                    case (char)ConsoleKey.Escape:
-
                         break;
                     case (char)ConsoleKey.Spacebar:
                     case char x when char.IsLetterOrDigit(x):
@@ -138,27 +151,8 @@ namespace APIExerciseTwo
                         break;
                 }
             }
-            //todo: select a city found by arrow instead of by if there is more than one
             return inputSoFar.ToString();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         static string LocationLine(string zip, string state, string city)
         {

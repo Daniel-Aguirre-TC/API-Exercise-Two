@@ -10,8 +10,10 @@ namespace APIExerciseTwo
     {
         static void Main(string[] args)
         {
-
+            // set window size and hide Console cursor since we won't be using it.
             Console.SetWindowSize(100, 80);
+            Console.CursorVisible = false;
+            // start the application
             ApplicationManager.StartApplication();
 
         }
