@@ -1,0 +1,49 @@
+{
+  "coord": {
+    "lon": -81.6556,
+    "lat": 30.3322
+  },
+  "weather": [
+    {
+      "id": 500,
+      "main": "Rain",
+      "description": "light rain",
+      "icon": "10n"
+    },
+    {
+      "id": 200,
+      "main": "Thunderstorm",
+      "description": "thunderstorm with light rain",
+      "icon": "11n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 77,
+    "feels_like": 78.58,
+    "temp_min": 74.98,
+    "temp_max": 79.99,
+    "pressure": 1012,
+    "humidity": 89
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 1.01,
+    "deg": 346,
+    "gust": 1.99
+  },
+  "rain": { "1h": 0.11 },
+  "clouds": { "all": 75 },
+  "dt": 1632363244,
+  "sys": {
+    "type": 2,
+    "id": 2030923,
+    "country": "US",
+    "sunrise": 1632309304,
+    "sunset": 1632353008
+  },
+  "timezone": -14400,
+  "id": 4160021,
+  "name": "Jacksonville",
+  "cod": 200
+}

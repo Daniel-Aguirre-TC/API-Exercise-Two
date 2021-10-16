@@ -11,6 +11,7 @@ namespace APIExerciseTwo
         static void Main(string[] args)
         {
 
+            Console.SetWindowSize(100, 80);
             ApplicationManager.StartApplication();
 
         }
